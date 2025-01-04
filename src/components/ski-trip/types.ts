@@ -14,13 +14,6 @@ export interface AccommodationDetails {
     roomType: string;
 }
 
-export interface ResortDetails {
-    name: string;
-    skiPassValidity: string;
-    transfers: string;
-    additionalEquipment: string;
-}
-
 export interface PackingListProps {
     title: string;
     items: string[];

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plane, Hotel, Map, Luggage, UtensilsCrossed } from 'lucide-react';
+import { Plane, Hotel, Luggage, UtensilsCrossed } from 'lucide-react';
 import FlightsTab from './FlightsTab';
 import AccommodationTab from './AccommodationTab';
-import ResortTab from './ResortTab';
 import PackingTab from './PackingTab';
 import RestaurantsTab from './RestaurantsTab';
 
@@ -17,26 +16,26 @@ const SkiTripPlanner: React.FC = () => {
                 </header>
 
                 <Tabs defaultValue="flights" className="w-full space-y-6">
-                    <TabsList className="grid w-full grid-cols-5">
-                        <TabsTrigger value="flights" className="flex items-center gap-2">
-                            <Plane className="h-4 w-4 mr-1" />
-                            Flights
+                    <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 gap-2">
+                        <TabsTrigger value="flights" className="flex items-center gap-2 text-xs md:text-sm">
+                            <Plane className="h-4 w-4" />
+                            <span className="hidden md:inline">Flights</span>
+                            <span className="md:hidden">Flight</span>
                         </TabsTrigger>
-                        <TabsTrigger value="accommodation" className="flex items-center gap-2">
-                            <Hotel className="h-4 w-4 mr-1" />
-                            Accommodation
+                        <TabsTrigger value="accommodation" className="flex items-center gap-2 text-xs md:text-sm">
+                            <Hotel className="h-4 w-4" />
+                            <span className="hidden md:inline">Accommodation</span>
+                            <span className="md:hidden">Hotel</span>
                         </TabsTrigger>
-                        <TabsTrigger value="resort" className="flex items-center gap-2">
-                            <Map className="h-4 w-4 mr-1" />
-                            Resort
+                        <TabsTrigger value="restaurants" className="flex items-center gap-2 text-xs md:text-sm">
+                            <UtensilsCrossed className="h-4 w-4" />
+                            <span className="hidden md:inline">Restaurants</span>
+                            <span className="md:hidden">Food</span>
                         </TabsTrigger>
-                        <TabsTrigger value="restaurants" className="flex items-center gap-2">
-                            <UtensilsCrossed className="h-4 w-4 mr-1" />
-                            Restaurants
-                        </TabsTrigger>
-                        <TabsTrigger value="packing" className="flex items-center gap-2">
-                            <Luggage className="h-4 w-4 mr-1" />
-                            Packing
+                        <TabsTrigger value="packing" className="flex items-center gap-2 text-xs md:text-sm">
+                            <Luggage className="h-4 w-4" />
+                            <span className="hidden md:inline">Packing</span>
+                            <span className="md:hidden">Pack</span>
                         </TabsTrigger>
                     </TabsList>
 
@@ -45,9 +44,6 @@ const SkiTripPlanner: React.FC = () => {
                     </TabsContent>
                     <TabsContent value="accommodation">
                         <AccommodationTab />
-                    </TabsContent>
-                    <TabsContent value="resort">
-                        <ResortTab />
                     </TabsContent>
                     <TabsContent value="restaurants">
                         <RestaurantsTab />
