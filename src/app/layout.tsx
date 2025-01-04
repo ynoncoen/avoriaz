@@ -14,10 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Avoriaz",
-  description: "Skip Trip planner for Avoriaz",
+    title: "Avoriaz",
+    description: "Ski Trip planner for Avoriaz",
+    icons: {
+        icon: '/favicon.ico',
+        shortcut: '/favicon.ico',
+    },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
