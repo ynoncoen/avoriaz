@@ -4,8 +4,9 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  basePath: '',
-  assetPrefix: ''
+  basePath: '/avoriaz', // This should match your repository name
+  assetPrefix: '/avoriaz/', // This should match your repository name with a trailing slash
+  trailingSlash: true
 }
 
 module.exports = nextConfig
