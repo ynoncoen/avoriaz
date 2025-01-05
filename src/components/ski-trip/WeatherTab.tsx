@@ -1,20 +1,21 @@
-"use client"
-
 import React, {useEffect, useState} from 'react';
 import {Card, CardHeader, CardTitle, CardContent} from '@/components/ui/card';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {Cloud, Sun, CloudSnow, Wind, Snowflake, ThermometerSnowflake, CloudRain, CloudDrizzle} from 'lucide-react';
-import {DayForecast, getWeatherData} from '@/lib/weather-service';
+import {DayForecast, getWeatherData, SnowConditions} from '@/lib/weather-service';
 
-const WeatherTab: React.FC = () => {
+const WeatherTab = () => {
     const [weatherData, setWeatherData] = useState<DayForecast[]>([]);
+    const [snowConditions, setSnowConditions] = useState<SnowConditions | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchWeather = async () => {
             try {
-                getWeatherData().then(data => setWeatherData(data));
+                const response = await getWeatherData();
+                setWeatherData(response.data);
+                setSnowConditions(response.snowConditions);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Failed to load weather data');
             } finally {
@@ -83,6 +84,31 @@ const WeatherTab: React.FC = () => {
                 </CardTitle>
             </CardHeader>
             <CardContent>
+                {/* Snow Conditions Panel */}
+                {snowConditions && (
+                    <div className="bg-blue-50 rounded-lg p-4 mb-6">
+                        <h3 className="text-lg font-semibold text-blue-700 mb-3">Current Snow Conditions</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="bg-white p-3 rounded-lg shadow-sm">
+                                <div className="text-sm text-gray-600">Top Snow Depth</div>
+                                <div className="text-xl font-bold text-blue-600">{snowConditions.topDepth}cm</div>
+                            </div>
+                            <div className="bg-white p-3 rounded-lg shadow-sm">
+                                <div className="text-sm text-gray-600">Bottom Snow Depth</div>
+                                <div className="text-xl font-bold text-blue-600">{snowConditions.bottomDepth}cm</div>
+                            </div>
+                            <div className="bg-white p-3 rounded-lg shadow-sm">
+                                <div className="text-sm text-gray-600">Fresh Snow</div>
+                                <div className="text-xl font-bold text-blue-600">{snowConditions.freshSnowfall}cm</div>
+                            </div>
+                            <div className="bg-white p-3 rounded-lg shadow-sm">
+                                <div className="text-sm text-gray-600">Last Snowfall</div>
+                                <div className="text-xl font-bold text-blue-600">{snowConditions.lastSnowfall}</div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 <ScrollArea className="h-[400px]">
                     <div className="space-y-6">
                         {/* Headers */}

@@ -1,6 +1,6 @@
 import React from 'react';
-import { PackingListProps } from './types';
-import { Checkbox } from '@/components/ui/checkbox';
+import {PackingListProps} from './types';
+import {Checkbox} from '@/components/ui/checkbox';
 
 const PackingList: React.FC<PackingListProps> = ({
                                                      title,

@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ExternalLink, Phone, MapPin } from 'lucide-react';
-// Import the restaurant data directly
 import restaurantData from '@/data/restaurant-data.json';
 
 const RestaurantsTab: React.FC = () => {

@@ -17,23 +17,29 @@ export interface DayForecast {
     periods: WeatherPeriod[];
 }
 
+export interface SnowConditions {
+    topDepth: number;
+    bottomDepth: number;
+    freshSnowfall: number;
+    lastSnowfall: string;
+}
+
 export interface WeatherResponse {
     data: DayForecast[];
+    snowConditions: SnowConditions;
     error?: string;
 }
 
-// Add /api/weather to the URL and ensure it's formatted correctly
 const API_URL = `${constants.API_URL}/api/weather`
 
-export async function getWeatherData(): Promise<DayForecast[]> {
+export async function getWeatherData(): Promise<WeatherResponse> {
     try {
-        console.log('Fetching from:', API_URL); // Debug log
+        console.log('Fetching from:', API_URL);
 
         const response = await fetch(API_URL, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                // Add any required authorization headers here if needed
             },
         });
 
@@ -47,7 +53,7 @@ export async function getWeatherData(): Promise<DayForecast[]> {
             throw new Error(jsonResponse.error);
         }
 
-        return jsonResponse.data;
+        return jsonResponse;
     } catch (error) {
         console.error('Error fetching weather data:', error);
         throw error instanceof Error ? error : new Error('An unknown error occurred');

@@ -1,6 +1,12 @@
-// api/src/index.ts
 import {VercelRequest, VercelResponse} from '@vercel/node';
 import * as cheerio from 'cheerio';
+
+interface SnowConditions {
+    topDepth: number;
+    bottomDepth: number;
+    freshSnowfall: number;
+    lastSnowfall: string;
+}
 
 interface PeriodForecast {
     time: 'AM' | 'PM' | 'night';
@@ -18,26 +24,17 @@ interface DayForecast {
     periods: PeriodForecast[];
 }
 
+interface WeatherResponse {
+    data: DayForecast[];
+    snowConditions: SnowConditions;
+    error?: string;
+}
+
 export default async function handler(
     request: VercelRequest,
     response: VercelResponse
 ): Promise<void> {
-    // Set CORS headers for all environments
-    // const allowedOrigins = [
-    //     'http://localhost:3000',
-    //     'http://localhost:3001',
-    //     'https://ynoncoen.github.io',
-    //     process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null
-    // ].filter(Boolean);
-
-    // const origin = request.headers?.origin;
-
-    // if (origin && allowedOrigins.includes(origin)) {
-    //     response.setHeader('Access-Control-Allow-Origin', origin);
-    // } else {
     response.setHeader('Access-Control-Allow-Origin', '*');
-    // }
-
     response.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     response.setHeader('Access-Control-Max-Age', '86400');
@@ -48,13 +45,72 @@ export default async function handler(
     }
 
     try {
-        const weatherData = await scrapeWeatherData();
+        const [weatherData, snowConditions] = await Promise.all([
+            scrapeWeatherData(),
+            scrapeSnowConditions()
+        ]);
+
         // Cache the response for 30 minutes
         response.setHeader('Cache-Control', 's-maxage=1800');
-        response.status(200).json({data: weatherData});
+        response.status(200).json({
+            data: weatherData,
+            snowConditions
+        });
     } catch (error) {
         console.error('Error in weather API:', error);
         response.status(500).json({error: 'Failed to fetch weather data'});
+    }
+}
+
+async function scrapeSnowConditions(): Promise<SnowConditions> {
+    try {
+        const response = await fetch('https://www.snow-forecast.com/resorts/Avoriaz/6day/top');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const html = await response.text();
+        const $ = cheerio.load(html);
+
+        // Find the snow-depths-table
+        const snowDepths: SnowConditions = {
+            topDepth: 0,
+            bottomDepth: 0,
+            freshSnowfall: 0,
+            lastSnowfall: ''
+        };
+
+        $('.snow-depths-table__table tbody tr').each((_, row) => {
+            const label = $(row).find('th').text().toLowerCase();
+            const valueCell = $(row).find('td');
+
+            if (label.includes('top snow depth')) {
+                const match = valueCell.text().match(/(\d+)/);
+                if (match) {
+                    snowDepths.topDepth = parseInt(match[1]);
+                }
+            }
+            else if (label.includes('bottom snow depth')) {
+                const match = valueCell.text().match(/(\d+)/);
+                if (match) {
+                    snowDepths.bottomDepth = parseInt(match[1]);
+                }
+            }
+            else if (label.includes('fresh snowfall')) {
+                const match = valueCell.text().match(/(\d+)/);
+                if (match) {
+                    snowDepths.freshSnowfall = parseInt(match[1]);
+                }
+            }
+            else if (label.includes('last snowfall')) {
+                snowDepths.lastSnowfall = valueCell.text().trim();
+            }
+        });
+
+        return snowDepths;
+    } catch (error) {
+        console.error('Error scraping snow conditions:', error);
+        throw error;
     }
 }
 
