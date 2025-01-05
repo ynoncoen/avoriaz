@@ -1,13 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    output: 'export',
+    output: process.env.VERCEL ? undefined : 'export',
     images: {
-        unoptimized: true
+        unoptimized: true,
     },
     basePath: '/avoriaz',
     assetPrefix: '/avoriaz/',
-    trailingSlash: true
+    trailingSlash: true,
 };
 
 export default nextConfig;

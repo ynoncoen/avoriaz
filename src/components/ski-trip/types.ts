@@ -20,21 +20,3 @@ export interface PackingListProps {
     checkedItems: string[];
     onToggleItem: (item: string) => void;
 }
-
-export interface PackingCategory {
-    title: string;
-    items: string[];
-}
-
-export interface RestaurantBooking {
-    date: string;
-    time: string;
-    restaurantUrl: string;
-    comment: string;
-    id: string;
-}
-
-export interface RestaurantDetails {
-    name: string;
-    url: string;
-}
