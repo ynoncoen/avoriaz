@@ -1,5 +1,5 @@
 // api/src/index.ts
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import {VercelRequest, VercelResponse} from '@vercel/node';
 import * as cheerio from 'cheerio';
 
 interface PeriodForecast {
@@ -23,20 +23,20 @@ export default async function handler(
     response: VercelResponse
 ): Promise<void> {
     // Set CORS headers for all environments
-    const allowedOrigins = [
-        'http://localhost:3000',
-        'http://localhost:3001',
-        'https://ynoncoen.github.io',
-        process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null
-    ].filter(Boolean);
+    // const allowedOrigins = [
+    //     'http://localhost:3000',
+    //     'http://localhost:3001',
+    //     'https://ynoncoen.github.io',
+    //     process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null
+    // ].filter(Boolean);
 
-    const origin = request.headers?.origin;
+    // const origin = request.headers?.origin;
 
-    if (origin && allowedOrigins.includes(origin)) {
-        response.setHeader('Access-Control-Allow-Origin', origin);
-    } else {
-        response.setHeader('Access-Control-Allow-Origin', '*');
-    }
+    // if (origin && allowedOrigins.includes(origin)) {
+    //     response.setHeader('Access-Control-Allow-Origin', origin);
+    // } else {
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    // }
 
     response.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -51,10 +51,10 @@ export default async function handler(
         const weatherData = await scrapeWeatherData();
         // Cache the response for 30 minutes
         response.setHeader('Cache-Control', 's-maxage=1800');
-        response.status(200).json({ data: weatherData });
+        response.status(200).json({data: weatherData});
     } catch (error) {
         console.error('Error in weather API:', error);
-        response.status(500).json({ error: 'Failed to fetch weather data' });
+        response.status(500).json({error: 'Failed to fetch weather data'});
     }
 }
 
