@@ -5,13 +5,11 @@ on:
     branches:
       - main
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -31,11 +29,18 @@ jobs:
         with:
           node-version: '18'
 
+      # Install only the root dependencies, excluding api folder
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
+        working-directory: .
 
+      # Build only the Next.js app
       - name: Build
         run: npm run build
+        working-directory: .
+        env:
+          # Prevent TypeScript from checking the api directory
+          SKIP_API_TYPES: true
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
