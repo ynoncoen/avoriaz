@@ -4,7 +4,7 @@ export function registerServiceWorker() {
             navigator.serviceWorker
                 .register('/avoriaz/sw.js', { scope: '/avoriaz/' })
                 .then((registration) => {
-                    console.log('ServiceWorker registration successful');
+                    console.log('ServiceWorker registration successful: ', registration);
                 })
                 .catch((err) => {
                     console.log('ServiceWorker registration failed: ', err);
