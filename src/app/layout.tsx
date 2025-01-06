@@ -1,7 +1,7 @@
-import type {Metadata} from "next";
-import {Geist, Geist_Mono} from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import { registerServiceWorker } from "@/lib/register-sw";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -13,9 +13,23 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+    themeColor: '#f8fafc',
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+};
+
 export const metadata: Metadata = {
     title: "Avoriaz",
     description: "Ski Trip planner for Avoriaz",
+    manifest: '/avoriaz/manifest.json',
+    appleWebApp: {
+        capable: true,
+        statusBarStyle: 'default',
+        title: 'Avoriaz',
+    },
     icons: {
         icon: [
             {
@@ -32,22 +46,38 @@ export const metadata: Metadata = {
                 sizes: '32x32',
                 type: 'image/png',
             },
+            {
+                url: '/avoriaz/favicon-192x192.png',
+                sizes: '192x192',
+                type: 'image/png',
+            },
+            {
+                url: '/avoriaz/favicon-512x512.png',
+                sizes: '512x512',
+                type: 'image/png',
+            },
         ],
-        shortcut: '/avoriaz/favicon.ico',
-        apple: '/avoriaz/favicon.ico',
+        apple: '/avoriaz/icon-192x192.png',
     },
-}
+};
 
 export default function RootLayout({
                                        children,
                                    }: Readonly<{
     children: React.ReactNode;
 }>) {
+    // Register service worker
+    if (typeof window !== 'undefined') {
+        registerServiceWorker();
+    }
+
     return (
         <html lang="en">
-        <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+        <head>
+            <link rel="manifest" href="/avoriaz/manifest.json" />
+            <link rel="apple-touch-icon" href="/avoriaz/icon-192x192.png" />
+        </head>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
         </body>
         </html>
