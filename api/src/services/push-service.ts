@@ -21,7 +21,9 @@ export async function saveSubscription(subscription: PushSubscription): Promise<
         await redis.set(
             `push:${subscription.endpoint}`,
             JSON.stringify(subscription),
-            { ex: 365 * 24 * 60 * 60 }
+            {
+                ex: 365 * 24 * 60 * 60
+            }
         );
     } catch (error) {
         console.error('Error saving push subscription:', error);
@@ -61,19 +63,29 @@ export async function sendNotification(
 export async function broadcastNotification(payload: NotificationPayload): Promise<void> {
     try {
         // Get all subscription keys
-        const [_, keys] = await redis.scan(0, { match: 'push:*', count: 100 });
+        const [_, keys] = await redis.scan(0, {
+            match: 'push:*',
+            count: 100
+        });
 
         if (keys.length > 0) {
             // Get all subscriptions
-            const subscriptions = await redis.mget<string[]>(...keys);
+            const subscriptionStrings = await redis.mget<PushSubscription[]>(...keys);
 
-            // Send notifications to all valid subscriptions
+            // Process and send notifications
             await Promise.all(
-                subscriptions
-                    .filter((sub): sub is string => sub !== null)
-                    .map((sub) => {
-                        const subscription = JSON.parse(sub) as PushSubscription;
-                        return sendNotification(subscription, payload).catch(console.error);
+                subscriptionStrings
+                    .filter((sub): sub is PushSubscription => sub !== null)
+                    .map(async (subscription) => {
+                        try {
+                            console.log('Sending notification to: ', subscription);
+                            // Parse the subscription string into a PushSubscription object
+                            return sendNotification(subscription, payload);
+                        } catch (parseError) {
+                            console.error('Error parsing subscription:', parseError);
+                            // If we can't parse the subscription, we should delete it
+                            return false;
+                        }
                     })
             );
         }

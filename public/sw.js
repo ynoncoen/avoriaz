@@ -81,8 +81,8 @@ self.addEventListener('push', (event) => {
 
     const options = {
         body: data.body,
-        icon: '/favicon-192x192.png',
-        badge: '/favicon-32x32.png',
+        icon: '/avoriaz/favicon-192x192.png',
+        badge: '/avoriaz/favicon-32x32.png',
         vibrate: [100, 50, 100],
         data: {
             dateOfArrival: Date.now(),

@@ -53,7 +53,7 @@ export default function RootLayout({
         <html lang="en">
         <head>
             <link rel="manifest" href="/avoriaz/manifest.json" />
-            <link rel="apple-touch-icon" href="/favicon-192x192.png" />
+            <link rel="apple-touch-icon" href="/avoriaz/favicon-192x192.png" />
             <meta name="theme-color" content="#f8fafc" />
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
