@@ -1,31 +1,34 @@
-import type { NextConfig } from "next";
+import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
-    output: process.env.VERCEL ? undefined : 'export',
+    output: process.env.NODE_ENV === 'development' ? undefined : 'export',
     images: {
-        unoptimized: true,
+        unoptimized: true
     },
-    basePath: '/avoriaz',
-    assetPrefix: '/avoriaz/',
-    trailingSlash: true,
+    basePath: process.env.NODE_ENV === 'development' ? '' : '/avoriaz',
+    assetPrefix: process.env.NODE_ENV === 'development' ? '' : '/avoriaz/',
     // Add headers for PWA
-    headers: async () => {
+    async headers() {
         return [
             {
-                source: '/sw.js',
+                source: '/avoriaz/manifest.json',
                 headers: [
                     {
                         key: 'Cache-Control',
-                        value: 'public, max-age=0, must-revalidate',
+                        value: 'no-store',
+                    },
+                    {
+                        key: 'Access-Control-Allow-Origin',
+                        value: '*',
                     },
                 ],
             },
             {
-                source: '/manifest.json',
+                source: '/avoriaz/sw.js',
                 headers: [
                     {
                         key: 'Cache-Control',
-                        value: 'public, max-age=0, must-revalidate',
+                        value: 'no-store',
                     },
                 ],
             },

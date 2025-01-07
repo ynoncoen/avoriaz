@@ -1,15 +1,22 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "src/index.ts",
-      "use": "@vercel/node"
-    }
+    { "src": "src/**/*.ts", "use": "@vercel/node" }
   ],
   "routes": [
     {
       "src": "/api/weather",
       "dest": "src/index.ts",
+      "methods": ["GET", "OPTIONS"]
+    },
+    {
+      "src": "/api/push/subscribe",
+      "dest": "src/push/subscribe.ts",
+      "methods": ["POST", "OPTIONS"]
+    },
+    {
+      "src": "/api/push/test",
+      "dest": "src/push/test.ts",
       "methods": ["GET", "OPTIONS"]
     }
   ]

@@ -1,7 +1,11 @@
-import type { Metadata, Viewport } from "next";
+"use client";
+
 import { Geist, Geist_Mono } from "next/font/google";
+import { useEffect } from "react";
 import "./globals.css";
-import { registerServiceWorker } from "@/lib/register-sw";
+import { NotificationPrompt } from "@/components/ski-trip/notification-prompt";
+import { NotificationTestButton } from "@/components/ski-trip/notification-test-button";
+import { subscribeToPushNotifications } from "@/lib/notifications";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -13,72 +17,49 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-export const viewport: Viewport = {
-    themeColor: '#f8fafc',
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-};
-
-export const metadata: Metadata = {
-    title: "Avoriaz",
-    description: "Ski Trip planner for Avoriaz",
-    manifest: '/avoriaz/manifest.json',
-    appleWebApp: {
-        capable: true,
-        statusBarStyle: 'default',
-        title: 'Avoriaz',
-    },
-    icons: {
-        icon: [
-            {
-                url: '/avoriaz/favicon.ico',
-                sizes: 'any',
-            },
-            {
-                url: '/avoriaz/favicon-16x16.png',
-                sizes: '16x16',
-                type: 'image/png',
-            },
-            {
-                url: '/avoriaz/favicon-32x32.png',
-                sizes: '32x32',
-                type: 'image/png',
-            },
-            {
-                url: '/avoriaz/favicon-192x192.png',
-                sizes: '192x192',
-                type: 'image/png',
-            },
-            {
-                url: '/avoriaz/favicon-512x512.png',
-                sizes: '512x512',
-                type: 'image/png',
-            },
-        ],
-        apple: '/avoriaz/icon-192x192.png',
-    },
-};
-
 export default function RootLayout({
                                        children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
-    // Register service worker
-    if (typeof window !== 'undefined') {
-        registerServiceWorker();
-    }
+                                   }: Readonly<{ children: React.ReactNode }>) {
+    useEffect(() => {
+        async function registerSW() {
+            if (!('serviceWorker' in navigator)) {
+                console.log('Service Worker is not supported');
+                return;
+            }
+
+            try {
+                console.log('Attempting to register service worker...');
+                const registration = await navigator.serviceWorker.register('/avoriaz/sw.js', {
+                    scope: '/avoriaz/'
+                });
+
+                console.log('Service Worker registration successful:', registration);
+
+                const subscribed = await subscribeToPushNotifications(registration);
+                console.log('Push notification subscription status:', subscribed);
+            } catch (error) {
+                console.error('Service Worker registration failed:', error);
+            }
+        }
+
+        const timer = setTimeout(() => {
+            registerSW().catch(console.error);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
         <html lang="en">
         <head>
             <link rel="manifest" href="/avoriaz/manifest.json" />
-            <link rel="apple-touch-icon" href="/avoriaz/icon-192x192.png" />
+            <link rel="apple-touch-icon" href="/favicon-192x192.png" />
+            <meta name="theme-color" content="#f8fafc" />
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
+        <NotificationPrompt />
+        <NotificationTestButton />
         </body>
         </html>
     );

@@ -8,12 +8,15 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "cheerio": "1.0.0-rc.12"
+    "cheerio": "1.0.0-rc.12",
+    "web-push": "^3.6.7",
+    "@upstash/redis": "^1.28.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^20",
+    "@types/web-push": "^3.6.3",
     "@vercel/node": "^3.0.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
