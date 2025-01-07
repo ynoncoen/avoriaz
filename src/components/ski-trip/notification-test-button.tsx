@@ -1,17 +1,27 @@
 "use client"
 
 import React, { useState } from 'react';
-import { CloudSnow } from 'lucide-react';
+import { UtensilsCrossed, CloudSnow, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import config from '@/lib/config';
 
 export function NotificationTestButton() {
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleTestNotification = async () => {
+    const handleTestNotification = async (type: 'weather' | 'restaurant') => {
         setIsLoading(true);
         try {
-            const response = await fetch(`${config.apiBaseUrl}/api/scheduled/daily-weather`, {
+            const endpoint = type === 'weather'
+                ? 'daily-weather'
+                : 'daily-restaurant';
+
+            const response = await fetch(`${config.apiBaseUrl}/api/scheduled/${endpoint}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${config.cronSecret}`,
@@ -21,27 +31,54 @@ export function NotificationTestButton() {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to send weather notification');
+                throw new Error(`Failed to send ${type} notification`);
             }
 
-            console.log('Weather notification sent successfully');
+            console.log(`${type} notification sent successfully`);
         } catch (error) {
-            console.error('Error sending weather notification:', error);
+            console.error(`Error sending ${type} notification:`, error);
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <Button
-            onClick={handleTestNotification}
-            disabled={isLoading}
-            variant="outline"
-            size="sm"
-            className="fixed bottom-4 left-4 flex items-center gap-2"
-        >
-            <CloudSnow className="h-4 w-4" />
-            {isLoading ? 'Sending...' : 'Test Weather Alert'}
-        </Button>
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button
+                    variant="outline"
+                    size="sm"
+                    className="fixed bottom-4 left-4 flex items-center gap-2"
+                    disabled={isLoading}
+                >
+                    {isLoading ? (
+                        'Sending...'
+                    ) : (
+                        <>
+                            Test Notifications
+                            <ChevronDown className="h-4 w-4 opacity-50" />
+                        </>
+                    )}
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+                <DropdownMenuItem
+                    onClick={() => handleTestNotification('weather')}
+                    disabled={isLoading}
+                    className="flex items-center gap-2"
+                >
+                    <CloudSnow className="h-4 w-4" />
+                    Test Weather Alert
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                    onClick={() => handleTestNotification('restaurant')}
+                    disabled={isLoading}
+                    className="flex items-center gap-2"
+                >
+                    <UtensilsCrossed className="h-4 w-4" />
+                    Test Restaurant Alert
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }
