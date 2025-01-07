@@ -25,7 +25,7 @@ export default async function handler(
             title: '🎉 Test Notification',
             body: 'If you see this, push notifications are working!',
             url: '/avoriaz/#weather',
-            icon: '/avoriaz/icon-192x192.png',
+            icon: '/avoriaz/favicon-192x192.png',
         });
 
         response.status(200).json({ message: 'Test notification sent' });

@@ -25,7 +25,7 @@
     {
       "src": "/api/scheduled/daily-weather",
       "dest": "src/scheduled/daily-weather.ts",
-      "methods": ["GET", "POST"]
+      "methods": ["GET", "POST", "OPTIONS"]
     },
     {
       "src": "/api/ping",

@@ -105,7 +105,7 @@ export async function sendWeatherAlert(
             title: '❄️ Fresh Powder Alert!',
             body: `${snowAmount}cm of fresh snow expected on ${date}! Get ready for perfect conditions!`,
             url: '/avoriaz/#weather',
-            icon: '/avoriaz/icon-192x192.png',
+            icon: '/avoriaz/favicon-192x192.png',
         });
     }
 }
@@ -119,6 +119,6 @@ export async function sendRestaurantReminder(
         title: '🍽️ Restaurant Reminder',
         body: `Don't forget your reservation at ${restaurantName} at ${time} today!`,
         url: '/avoriaz/#restaurants',
-        icon: '/avoriaz/icon-192x192.png',
+        icon: '/avoriaz/favicon-192x192.png',
     });
 }

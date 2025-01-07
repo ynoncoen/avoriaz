@@ -47,7 +47,8 @@ const SkiTripPlanner: React.FC = () => {
     const handleTabChange = (value: string) => {
         setActiveTab(value);
         // Update URL hash
-        window.location.hash = value;
+        const newUrl = `${window.location.pathname}${window.location.search}#${value}`;
+        window.history.replaceState(null, '', newUrl);
 
         if (value === 'weather') {
             setIsAnimating(true);

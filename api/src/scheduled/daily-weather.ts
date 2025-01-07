@@ -112,7 +112,7 @@ export default async function handler(
             title: '⛷️ Daily Snow Report',
             body: message,
             url: '/avoriaz/#weather',
-            icon: '/avoriaz/icon-192x192.png'
+            icon: '/avoriaz/favicon-192x192.png'
         });
 
         response.status(200).json({
