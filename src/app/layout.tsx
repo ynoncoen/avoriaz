@@ -52,14 +52,19 @@ export default function RootLayout({
     return (
         <html lang="en">
         <head>
-            <link rel="manifest" href="/avoriaz/manifest.json" />
-            <link rel="apple-touch-icon" href="/avoriaz/favicon-192x192.png" />
-            <meta name="theme-color" content="#f8fafc" />
+            <link rel="manifest" href="/avoriaz/manifest.json"/>
+            <link rel="icon" type="image/x-icon" href="/avoriaz/favicon.ico"/>
+            <link rel="icon" type="image/png" sizes="16x16" href="/avoriaz/favicon-16x16.png"/>
+            <link rel="icon" type="image/png" sizes="32x32" href="/avoriaz/favicon-32x32.png"/>
+            <link rel="icon" type="image/png" sizes="192x192" href="/avoriaz/favicon-192x192.png"/>
+            <link rel="icon" type="image/png" sizes="512x512" href="/avoriaz/favicon-512x512.png"/>
+            <link rel="apple-touch-icon" href="/avoriaz/favicon-192x192.png"/>
+            <meta name="theme-color" content="#f8fafc"/>
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
-        <NotificationPrompt />
-        <NotificationTestButton />
+        <NotificationPrompt/>
+        <NotificationTestButton/>
         </body>
         </html>
     );
