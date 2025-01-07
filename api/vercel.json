@@ -8,6 +8,11 @@
   ],
   "routes": [
     {
+      "src": "/api/restaurants",
+      "dest": "src/restaurants/restaurants.ts",
+      "methods": ["GET", "OPTIONS"]
+    },
+    {
       "src": "/api/weather",
       "dest": "src/weather/weather.ts",
       "methods": ["GET", "OPTIONS"]

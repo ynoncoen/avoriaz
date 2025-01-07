@@ -1,16 +1,66 @@
 "use client"
-import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ExternalLink, Phone, MapPin } from 'lucide-react';
-import restaurantData from '@/data/restaurant-data.json';
+
+import React, {useEffect, useState} from 'react';
+import {Card, CardHeader, CardTitle, CardContent} from '@/components/ui/card';
+import {ScrollArea} from '@/components/ui/scroll-area';
+import {ExternalLink, Phone, MapPin} from 'lucide-react';
+import {getRestaurantData, type RestaurantData} from '@/lib/restaurant-service';
 
 const RestaurantsTab: React.FC = () => {
-    const formatDate = (date: string) => {
+    const [restaurantData, setRestaurantData] = useState<RestaurantData | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getRestaurantData();
+                setRestaurantData(data);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'Failed to load restaurant data');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const formatDate = (date: string | undefined) => {
         if (!date?.includes('.')) return date;
         const [day] = date.split('.');
         return `January ${day}`;
     };
+
+    if (isLoading) {
+        return (
+            <Card className="border-l-4 border-l-yellow-500">
+                <CardHeader>
+                    <CardTitle>Restaurant Bookings</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex items-center justify-center h-96">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"/>
+                    </div>
+                </CardContent>
+            </Card>
+        );
+    }
+
+    if (error || !restaurantData) {
+        return (
+            <Card className="border-l-4 border-l-red-500">
+                <CardHeader>
+                    <CardTitle>Restaurant Bookings</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex flex-col items-center justify-center h-96 text-center space-y-4">
+                        <p className="text-red-500">{error || 'Failed to load restaurant data'}</p>
+                    </div>
+                </CardContent>
+            </Card>
+        );
+    }
 
     return (
         <Card className="border-l-4 border-l-yellow-500">
@@ -35,23 +85,21 @@ const RestaurantsTab: React.FC = () => {
                                             rel="noopener noreferrer"
                                             className="text-primary hover:text-primary/80"
                                         >
-                                            <ExternalLink className="h-4 w-4" />
+                                            <ExternalLink className="h-4 w-4"/>
                                         </a>
                                     </div>
-
                                     <div className="space-y-2 text-sm">
                                         {booking.phone && (
                                             <div className="flex items-center gap-2">
-                                                <Phone className="h-4 w-4" />
+                                                <Phone className="h-4 w-4"/>
                                                 <a href={`tel:${booking.phone}`} className="hover:underline">
                                                     {booking.phone}
                                                 </a>
                                             </div>
                                         )}
-
                                         {booking.address && (
                                             <div className="flex items-center gap-2">
-                                                <MapPin className="h-4 w-4" />
+                                                <MapPin className="h-4 w-4"/>
                                                 <a
                                                     href={`https://maps.google.com/?q=${encodeURIComponent(booking.address)}`}
                                                     target="_blank"
@@ -62,12 +110,10 @@ const RestaurantsTab: React.FC = () => {
                                                 </a>
                                             </div>
                                         )}
-
                                         <div className="flex items-center gap-2 mt-4 pt-2 border-t">
                                             <span className="font-medium">Reservation:</span>
-                                            <span>{formatDate(booking.date || '')} at {booking.time}</span>
+                                            <span>{formatDate(booking.date)} at {booking.time}</span>
                                         </div>
-
                                         {booking.comment && (
                                             <div className="text-sm text-muted-foreground mt-2">
                                                 Note: {booking.comment}
@@ -94,13 +140,13 @@ const RestaurantsTab: React.FC = () => {
                                                 rel="noopener noreferrer"
                                                 className="text-primary hover:text-primary/80"
                                             >
-                                                <ExternalLink className="h-4 w-4" />
+                                                <ExternalLink className="h-4 w-4"/>
                                             </a>
                                         </div>
                                         <div className="space-y-2 text-sm">
                                             {restaurant.phone && (
                                                 <div className="flex items-center gap-2">
-                                                    <Phone className="h-4 w-4" />
+                                                    <Phone className="h-4 w-4"/>
                                                     <a href={`tel:${restaurant.phone}`} className="hover:underline">
                                                         {restaurant.phone}
                                                     </a>
@@ -108,7 +154,7 @@ const RestaurantsTab: React.FC = () => {
                                             )}
                                             {restaurant.address && (
                                                 <div className="flex items-center gap-2">
-                                                    <MapPin className="h-4 w-4" />
+                                                    <MapPin className="h-4 w-4"/>
                                                     <a
                                                         href={`https://maps.google.com/?q=${encodeURIComponent(restaurant.address)}`}
                                                         target="_blank"
