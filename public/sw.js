@@ -69,6 +69,17 @@ self.addEventListener('fetch', (event) => {
     );
 });
 
+// Periodic background sync to keep service worker alive
+self.addEventListener('periodicsync', (event) => {
+    if (event.tag === 'keep-alive') {
+        console.log('Periodic sync triggered');
+        event.waitUntil(
+            // Ping our API to keep the connection alive
+            fetch('https://avoriaz-api.vercel.app/api/ping', { mode: 'no-cors' })
+        );
+    }
+});
+
 // Handle push notifications
 self.addEventListener('push', (event) => {
     if (!event.data) {
@@ -76,25 +87,30 @@ self.addEventListener('push', (event) => {
         return;
     }
 
-    const data = event.data.json();
-    console.log('Push notification received:', data);
+    try {
+        const data = event.data.json();
+        console.log('Push notification received:', data);
 
-    const options = {
-        body: data.body,
-        icon: '/avoriaz/favicon-192x192.png',
-        badge: '/avoriaz/favicon-32x32.png',
-        vibrate: [100, 50, 100],
-        data: {
-            dateOfArrival: Date.now(),
-            url: data.url || '/'
-        }
-    };
+        const options = {
+            body: data.body,
+            icon: data.icon || '/avoriaz/favicon-192x192.png',
+            badge: '/avoriaz/favicon-32x32.png',
+            vibrate: [100, 50, 100],
+            data: {
+                dateOfArrival: Date.now(),
+                url: data.url || '/avoriaz/'
+            }
+        };
 
-    event.waitUntil(
-        self.registration.showNotification(data.title, options)
-    );
+        event.waitUntil(
+            self.registration.showNotification(data.title, options)
+        );
+    } catch (error) {
+        console.error('Error processing push notification:', error);
+    }
 });
 
+// Handle notification clicks
 self.addEventListener('notificationclick', (event) => {
     console.log('Notification clicked:', event);
     event.notification.close();
@@ -102,6 +118,7 @@ self.addEventListener('notificationclick', (event) => {
     event.waitUntil(
         clients.matchAll({ type: 'window', includeUncontrolled: true })
             .then((clientList) => {
+                // Try to focus an existing window
                 const hadWindowToFocus = clientList.some((client) => {
                     if (client.url === event.notification.data.url) {
                         return client.focus();
@@ -109,15 +126,11 @@ self.addEventListener('notificationclick', (event) => {
                     return false;
                 });
 
+                // If no existing window found - open a new one
                 if (!hadWindowToFocus) {
                     clients.openWindow(event.notification.data.url)
                         .then((windowClient) => windowClient?.focus());
                 }
             })
     );
-});
-
-// Log any errors
-self.addEventListener('error', (event) => {
-    console.error('Service Worker error:', event.error);
 });

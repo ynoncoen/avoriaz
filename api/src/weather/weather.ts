@@ -24,12 +24,6 @@ interface DayForecast {
     periods: PeriodForecast[];
 }
 
-interface WeatherResponse {
-    data: DayForecast[];
-    snowConditions: SnowConditions;
-    error?: string;
-}
-
 export default async function handler(
     request: VercelRequest,
     response: VercelResponse

@@ -41,7 +41,7 @@ jobs:
         env:
           # Prevent TypeScript from checking the api directory
           SKIP_API_TYPES: true
-
+          NEXT_PUBLIC_CRON_SECRET: ${{ secrets.CRON_SECRET }}
       - name: Setup Pages
         uses: actions/configure-pages@v3
 

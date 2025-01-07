@@ -1,6 +1,7 @@
 "use client"
+
 import React, { useState } from 'react';
-import { Bell } from 'lucide-react';
+import { CloudSnow } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import config from '@/lib/config';
 
@@ -10,13 +11,22 @@ export function NotificationTestButton() {
     const handleTestNotification = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch(`${config.apiBaseUrl}/api/push/test`);
+            const response = await fetch(`${config.apiBaseUrl}/api/scheduled/daily-weather`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${config.cronSecret}`,
+                    'Content-Type': 'application/json',
+                },
+                mode: 'cors',
+            });
+
             if (!response.ok) {
-                throw new Error('Failed to send test notification');
+                throw new Error('Failed to send weather notification');
             }
-            console.log('Test notification sent successfully');
+
+            console.log('Weather notification sent successfully');
         } catch (error) {
-            console.error('Error sending test notification:', error);
+            console.error('Error sending weather notification:', error);
         } finally {
             setIsLoading(false);
         }
@@ -30,8 +40,8 @@ export function NotificationTestButton() {
             size="sm"
             className="fixed bottom-4 left-4 flex items-center gap-2"
         >
-            <Bell className="h-4 w-4" />
-            {isLoading ? 'Sending...' : 'Test Notification'}
+            <CloudSnow className="h-4 w-4" />
+            {isLoading ? 'Sending...' : 'Test Weather Alert'}
         </Button>
     );
 }
