@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UtensilsCrossed, CloudSnow, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,14 +13,26 @@ import config from '@/lib/config';
 
 export function NotificationTestButton() {
     const [isLoading, setIsLoading] = useState(false);
+    const [showButton, setShowButton] = useState(false);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+            const modifierKey = isMac ? event.metaKey : event.ctrlKey;
+
+            if (modifierKey && event.altKey && event.code === 'KeyT') {
+                setShowButton(true);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     const handleTestNotification = async (type: 'weather' | 'restaurant') => {
         setIsLoading(true);
         try {
-            const endpoint = type === 'weather'
-                ? 'daily-weather'
-                : 'daily-restaurant';
-
+            const endpoint = type === 'weather' ? 'daily-weather' : 'daily-restaurant';
             const response = await fetch(`${config.apiBaseUrl}/api/scheduled/${endpoint}`, {
                 method: 'GET',
                 headers: {
@@ -33,14 +45,16 @@ export function NotificationTestButton() {
             if (!response.ok) {
                 throw new Error(`Failed to send ${type} notification`);
             }
-
-            console.log(`${type} notification sent successfully`);
         } catch (error) {
             console.error(`Error sending ${type} notification:`, error);
         } finally {
             setIsLoading(false);
         }
     };
+
+    if (!showButton) {
+        return null;
+    }
 
     return (
         <DropdownMenu>
