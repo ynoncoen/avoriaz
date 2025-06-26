@@ -1,37 +1,4 @@
 {
   "bookings": [],
-  "additionalRestaurants": [
-    {
-      "name": "Le Loup Blanc",
-      "restaurantUrl": "https://www.lesarcs.com/restaurant/le-loup-blanc",
-      "phone": "+33 4 79 07 61 10",
-      "address": "Arc 1950, Les Arcs",
-      "cuisine": "Fine Dining French",
-      "id": "additional-1"
-    },
-    {
-      "name": "Chez Bouboule",
-      "restaurantUrl": "https://www.lesarcs.com/restaurant/chez-bouboule",
-      "phone": "+33 4 79 07 13 29",
-      "address": "Arc 1800, Les Arcs",
-      "cuisine": "Traditional Savoyard",
-      "id": "additional-2"
-    },
-    {
-      "name": "L'Aiguille Rouge",
-      "restaurantUrl": "https://www.lesarcs.com/restaurant/aiguille-rouge",
-      "phone": "+33 4 79 07 41 74",
-      "address": "Arc 2000, Les Arcs",
-      "cuisine": "Mountain Restaurant",
-      "id": "additional-3"
-    },
-    {
-      "name": "La Taverne du Chantel",
-      "restaurantUrl": "https://www.lesarcs.com/restaurant/taverne-chantel",
-      "phone": "+33 4 79 07 12 26",
-      "address": "Arc 1600, Les Arcs",
-      "cuisine": "French Alpine",
-      "id": "additional-4"
-    }
-  ]
+  "additionalRestaurants": []
 }
