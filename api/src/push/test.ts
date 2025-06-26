@@ -24,8 +24,8 @@ export default async function handler(
         await broadcastNotification({
             title: '🎉 Test Notification',
             body: 'If you see this, push notifications are working!',
-            url: '/avoriaz/#weather',
-            icon: '/avoriaz/favicon-192x192.png',
+            url: '/ski/#weather',
+            icon: '/ski/favicon-192x192.png',
         });
 
         response.status(200).json({ message: 'Test notification sent' });

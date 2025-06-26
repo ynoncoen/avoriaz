@@ -4,8 +4,8 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  basePath: '/avoriaz', // This should match your repository name
-  assetPrefix: '/avoriaz/', // This should match your repository name with a trailing slash
+  basePath: '/ski', // This should match your repository name
+  assetPrefix: '/ski/', // This should match your repository name with a trailing slash
   trailingSlash: true
 }
 

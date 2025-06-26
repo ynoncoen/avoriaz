@@ -111,8 +111,8 @@ export default async function handler(
         await broadcastNotification({
             title: '⛷️ Daily Snow Report',
             body: message,
-            url: '/avoriaz/#weather',
-            icon: '/avoriaz/favicon-192x192.png'
+            url: '/ski/#weather',
+            icon: '/ski/favicon-192x192.png'
         });
 
         response.status(200).json({

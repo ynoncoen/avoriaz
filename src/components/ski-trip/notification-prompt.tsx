@@ -39,7 +39,7 @@ export function NotificationPrompt() {
                 // Show a success message
                 new Notification('Notifications Enabled!', {
                     body: "You'll receive updates about weather and restaurant bookings.",
-                    icon: '/avoriaz/favicon-192x192.png'
+                    icon: '/ski/favicon-192x192.png'
                 });
             }
         } catch (error) {

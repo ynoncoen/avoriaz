@@ -1,1 +1,1 @@
-View the page at: https://ynoncoen.github.io/avoriaz/
+View the page at: https://ynoncoen.github.io/ski/

@@ -74,8 +74,8 @@ export default async function handler(
             await broadcastNotification({
                 title: '🍽️ No Restaurant Today',
                 body: 'No restaurant for today. Are we going hungry? 😅',
-                url: '/avoriaz/#restaurants',
-                icon: '/avoriaz/favicon-192x192.png'
+                url: '/ski/#restaurants',
+                icon: '/ski/favicon-192x192.png'
             });
 
             response.status(200).json({
@@ -95,8 +95,8 @@ export default async function handler(
         await broadcastNotification({
             title: '🍽️ Restaurant Reminder',
             body: message,
-            url: '/avoriaz/#restaurants',
-            icon: '/avoriaz/favicon-192x192.png'
+            url: '/ski/#restaurants',
+            icon: '/ski/favicon-192x192.png'
         });
 
         response.status(200).json({
