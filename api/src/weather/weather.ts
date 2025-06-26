@@ -58,7 +58,7 @@ export default async function handler(
 
 async function scrapeSnowConditions(): Promise<SnowConditions> {
     try {
-        const response = await fetch('https://www.snow-forecast.com/resorts/Avoriaz/6day/top');
+        const response = await fetch('https://www.snow-forecast.com/resorts/Les-Arcs/6day/top');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -110,7 +110,7 @@ async function scrapeSnowConditions(): Promise<SnowConditions> {
 
 async function scrapeWeatherData(): Promise<DayForecast[]> {
     try {
-        const response = await fetch('https://www.snow-forecast.com/resorts/Avoriaz/6day/top', {
+        const response = await fetch('https://www.snow-forecast.com/resorts/Les-Arcs/6day/top', {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             }

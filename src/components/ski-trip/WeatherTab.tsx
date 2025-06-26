@@ -116,10 +116,9 @@ const WeatherTab = () => {
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-col items-center justify-center h-96 text-center space-y-4">
-                        <p className="text-amber-600 text-lg">🚧 Weather Service Update Needed</p>
+                        <p className="text-amber-600 text-lg">🚧 Weather Service Issues</p>
                         <p className="text-sm text-muted-foreground max-w-md">
-                            The weather service is currently configured for Avoriaz and needs to be updated 
-                            to scrape Les Arcs weather data. This will be updated before the trip!
+                            Having issues fetching weather data...
                         </p>
                         <p className="text-xs text-red-500 mt-4">{error}</p>
                     </div>

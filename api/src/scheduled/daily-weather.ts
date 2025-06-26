@@ -17,7 +17,7 @@ interface WeatherSummary {
 
 async function getDailyWeatherSummary(): Promise<WeatherSummary> {
     try {
-        const response = await fetch('https://www.snow-forecast.com/resorts/Avoriaz/6day/top');
+        const response = await fetch('https://www.snow-forecast.com/resorts/Les-Arcs/6day/top');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -92,7 +92,7 @@ export default async function handler(
         const summary = await getDailyWeatherSummary();
 
         // Create notification message
-        let message = `Today's Weather at Avoriaz (2000m):\n`;
+        let message = `Today's Weather at Les Arcs (2000m):\n`;
         message += `Temperature: ${summary.minTemp}°C to ${summary.maxTemp}°C\n`;
 
         const { morning, afternoon, night } = summary.snowfall;

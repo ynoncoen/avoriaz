@@ -48,7 +48,7 @@ cd api && npm run build
 
 ### Backend Structure
 - **Dual Deployment**: Can run as Express server or Vercel serverless functions
-- **Weather API**: Web scraping for Avoriaz weather and snow conditions
+- **Weather API**: Web scraping for Ski weather and snow conditions
 - **Restaurant API**: Serves restaurant booking and recommendation data
 - **Push Notifications**: Web push notification support with Redis state management
 
