@@ -42,7 +42,7 @@ const SkiTripPlanner: React.FC = () => {
         return () => {
             window.removeEventListener('hashchange', handleHashChange);
         };
-    }, []);
+    }, [validTabs, defaultTab]);
 
     const handleTabChange = (value: string) => {
         setActiveTab(value);

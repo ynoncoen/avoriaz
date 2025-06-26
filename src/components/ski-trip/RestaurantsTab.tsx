@@ -75,7 +75,7 @@ const RestaurantsTab: React.FC = () => {
                             {restaurantData.bookings.length === 0 ? (
                                 <div className="text-center py-8 text-muted-foreground">
                                     <p className="text-lg mb-2">🍽️ No restaurant bookings yet</p>
-                                    <p>We'll add restaurant reservations closer to the trip date!</p>
+                                    <p>We&apos;ll add restaurant reservations closer to the trip date!</p>
                                 </div>
                             ) : (
                                 restaurantData.bookings.map((booking) => (
