@@ -21,7 +21,8 @@ export const packingData = [
             "Impact Shorts",
             "Ski Goggles",
             "Ski Bag",
-            "Ski Gloves"
+            "Ski Gloves",
+            "Tabakman: Snowboard bindings"
         ]
     },
     {
@@ -35,7 +36,7 @@ export const packingData = [
             "Underwear",
             "Evening Shirts",
             "Sweaters",
-            "Jeans (x3)",
+            "Jeans (x2)",
             "Hiking Boots",
             "Flight Sweatshirt",
             "Flight Pants",
@@ -65,7 +66,7 @@ export const packingData = [
         items: [
             "Advil",
             "Magnesium",
-            "Magnesium Pills",
+            "Vitamin D",
             "Vitamin C",
             "Tums",
             "Water Carrier",
@@ -87,7 +88,7 @@ export const packingData = [
         items: [
             "Kitchen Cutting Knives",
             "Tabakman/Ynon: Coffee",
-            "Tabakman: Humidifier",
+            "Tabakman/Ynon: Humidifier",
             "Ynon: Additional Humidifier",
             "Ynon: Flasks",
             "Ynon: Moka Pot",
