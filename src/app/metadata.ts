@@ -9,13 +9,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-    title: "Avoriaz",
-    description: "Ski Trip planner for Avoriaz",
+    title: "Les Arcs",
+    description: "Ski Trip planner for Les Arcs",
     manifest: '/avoriaz/manifest.json',
     appleWebApp: {
         capable: true,
         statusBarStyle: 'default',
-        title: 'Avoriaz',
+        title: 'Les Arcs',
     },
     icons: {
         icon: [

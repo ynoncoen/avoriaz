@@ -12,7 +12,7 @@ const FlightCountdown = () => {
     });
 
     useEffect(() => {
-        const flightDate = new Date('2025-01-19T08:25:00+02:00'); // Tel Aviv time (UTC+2)
+        const flightDate = new Date('2026-01-17T05:50:00+02:00'); // Tel Aviv time (UTC+2)
 
         const calculateTimeLeft = () => {
             const now = new Date();

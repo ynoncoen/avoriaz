@@ -5,26 +5,26 @@ import { Plane, Building2 } from 'lucide-react';
 const TravelDetailsTab: React.FC = () => {
     const outboundFlight = {
         flightNumber: 'ISRAIR 6H141',
-        departure: 'Tel Aviv',
-        departureTime: '08:25',
-        arrival: 'ALPS-ISERE',
-        arrivalTime: '12:05'
+        departure: 'Tel Aviv (TLV)',
+        departureTime: '05:50',
+        arrival: 'Grenoble (GNB)',
+        arrivalTime: 'TBA'
     };
 
     const returnFlight = {
         flightNumber: 'ISRAIR 6H142',
-        departure: 'ALPS-ISERE',
-        departureTime: '13:05',
-        arrival: 'Tel Aviv',
-        arrivalTime: '18:10'
+        departure: 'Grenoble (GNB)',
+        departureTime: '10:30',
+        arrival: 'Tel Aviv (TLV)',
+        arrivalTime: 'TBA'
     };
 
     const accommodation = {
-        name: 'RESIDENCE ATRIA CROZAT 3*',
-        checkIn: 'January 19',
-        checkOut: 'January 26',
+        name: 'Arc 1950 Village',
+        checkIn: 'January 17, 2026',
+        checkOut: 'January 24, 2026',
         duration: '7 nights',
-        roomType: '4-Person Apartment'
+        roomType: 'TBA'
     };
 
     return (
@@ -37,7 +37,7 @@ const TravelDetailsTab: React.FC = () => {
                 <CardContent>
                     <div className="space-y-6">
                         <div className="border-b pb-4">
-                            <h3 className="font-semibold mb-4 text-lg">Outbound Flight - January 19</h3>
+                            <h3 className="font-semibold mb-4 text-lg">Outbound Flight - January 17, 2026</h3>
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center">
                                     <span>Flight Number:</span>
@@ -54,7 +54,7 @@ const TravelDetailsTab: React.FC = () => {
                             </div>
                         </div>
                         <div>
-                            <h3 className="font-semibold mb-4 text-lg">Return Flight - January 26</h3>
+                            <h3 className="font-semibold mb-4 text-lg">Return Flight - January 24, 2026</h3>
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center">
                                     <span>Flight Number:</span>
@@ -99,6 +99,36 @@ const TravelDetailsTab: React.FC = () => {
                                 <span>Room Type:</span>
                                 <span>{accommodation.roomType}</span>
                             </div>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-l-purple-500">
+                <CardHeader className="flex flex-row items-center space-x-2">
+                    <Building2 className="h-6 w-6" />
+                    <CardTitle>Destination Info</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="space-y-4">
+                        <h3 className="font-semibold text-lg">Les Arcs - Arc 1950</h3>
+                        <div className="space-y-3 text-sm">
+                            <p>
+                                <strong>Resort:</strong> Les Arcs is a large ski area in the French Alps, part of the massive Paradiski domain 
+                                (425km of slopes) connected to La Plagne via the Vanoise Express cable car.
+                            </p>
+                            <p>
+                                <strong>Arc 1950:</strong> The newest and most modern village in Les Arcs, built in traditional Savoyard style 
+                                with luxury residences, restaurants, and shops. Located at 1950m altitude.
+                            </p>
+                            <p>
+                                <strong>Skiing:</strong> Access to 200km+ of slopes in Les Arcs plus connection to La Plagne. 
+                                Suitable for all levels with excellent off-piste opportunities.
+                            </p>
+                            <p>
+                                <strong>Village Features:</strong> Car-free pedestrian village with ski-in/ski-out access, 
+                                heated outdoor pools, spas, and boutiques. Direct access to Cabriolet funicular.
+                            </p>
                         </div>
                     </div>
                 </CardContent>

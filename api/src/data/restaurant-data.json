@@ -1,113 +1,35 @@
 {
-  "bookings": [
-    {
-      "date": "19.1",
-      "time": "19:30",
-      "name": "La Cachette",
-      "restaurantUrl": "https://www.lacachetteavoriaz.com/en/",
-      "phone": "+33 4 50 74 24 99",
-      "address": "138 Promenade du Festival, 74110 Avoriaz",
-      "cuisine": "French Alpine",
-      "comment": "no show == 45 euro",
-      "id": "booking-1"
-    },
-    {
-      "date": "20.1",
-      "time": "19:00",
-      "name": "155 Steakhouse",
-      "restaurantUrl": "https://155-steakhouse.fr/",
-      "phone": "+33 4 50 74 22 87",
-      "address": "155 Rue des Traîneaux, 74110 Avoriaz",
-      "cuisine": "Steakhouse",
-      "comment": "name: David",
-      "id": "booking-2"
-    },
-    {
-      "date": "21.1",
-      "time": "19:00",
-      "name": "Les Enfants Terribles",
-      "restaurantUrl": "https://en.hoteldesdromonts.com/restaurants",
-      "phone": "+33 4 50 74 12 54",
-      "address": "Hotel des Dromonts, Place des Dromonts, 74110 Avoriaz",
-      "cuisine": "Fine Dining French",
-      "comment": "Les Enfants Terribles",
-      "id": "booking-3"
-    },
-    {
-      "date": "22.1",
-      "time": "19:00",
-      "name": "La Cachette",
-      "restaurantUrl": "https://www.lacachetteavoriaz.com/en/",
-      "phone": "+33 4 50 74 24 99",
-      "address": "138 Promenade du Festival, 74110 Avoriaz",
-      "cuisine": "French Alpine",
-      "comment": "no show == 45 euro",
-      "id": "booking-4"
-    },
-    {
-      "date": "23.1",
-      "time": "19:00",
-      "name": "Le Festival",
-      "restaurantUrl": "https://en.hoteldesdromonts.com/restaurants",
-      "phone": "+33 4 50 74 12 54",
-      "address": "Hotel des Dromonts, Place des Dromonts, 74110 Avoriaz",
-      "cuisine": "Modern French",
-      "comment": "Le Festival",
-      "id": "booking-5"
-    },
-    {
-      "date": "24.1",
-      "time": "19:00",
-      "name": "Hotel Des Dromonts",
-      "restaurantUrl": "https://en.hoteldesdromonts.com/restaurants",
-      "phone": "+33 4 50 74 12 54",
-      "address": "Place des Dromonts, 74110 Avoriaz",
-      "cuisine": "French",
-      "comment": "placeholder",
-      "id": "booking-6"
-    },
-    {
-      "date": "25.1",
-      "time": "19:00",
-      "name": "La Brasserie",
-      "restaurantUrl": "https://la-brasserie-avoriaz.fr/",
-      "phone": "+33 4 50 74 15 11",
-      "address": "Résidence Sassanka, 74110 Avoriaz",
-      "cuisine": "French Brasserie",
-      "comment": "name: David",
-      "id": "booking-7"
-    }
-  ],
+  "bookings": [],
   "additionalRestaurants": [
     {
-      "name": "Le Traino",
-      "restaurantUrl": "https://www.avoriaz.com/fiche/restaurant-le-traino/",
-      "phone": "+33 4 50 74 17 84",
-      "address": "Route des Rennes, 74110 Avoriaz",
-      "cuisine": "Savoyard",
+      "name": "Le Loup Blanc",
+      "restaurantUrl": "https://www.lesarcs.com/restaurant/le-loup-blanc",
+      "phone": "+33 4 79 07 61 10",
+      "address": "Arc 1950, Les Arcs",
+      "cuisine": "Fine Dining French",
       "id": "additional-1"
     },
     {
-      "name": "La Reserve",
-      "restaurantUrl": "https://www.la-reserve-avoriaz.com/",
-      "phone": "+33 4 50 74 15 75",
-      "address": "Route de l'Alpage, 74110 Avoriaz",
-      "cuisine": "French Alpine",
+      "name": "Chez Bouboule",
+      "restaurantUrl": "https://www.lesarcs.com/restaurant/chez-bouboule",
+      "phone": "+33 4 79 07 13 29",
+      "address": "Arc 1800, Les Arcs",
+      "cuisine": "Traditional Savoyard",
       "id": "additional-2"
     },
     {
-      "name": "Le Fangle",
-      "restaurantUrl": "https://maps.app.goo.gl/VgxEunhKqVhWTkgy5",
-      "phone": "+33 4 50 74 16 18",
-      "address": "Plateau du Fangle, 74110 Avoriaz",
+      "name": "L'Aiguille Rouge",
+      "restaurantUrl": "https://www.lesarcs.com/restaurant/aiguille-rouge",
+      "phone": "+33 4 79 07 41 74",
+      "address": "Arc 2000, Les Arcs",
       "cuisine": "Mountain Restaurant",
       "id": "additional-3"
     },
     {
-      "name": "La Cabane",
-      "restaurantUrl": "https://www.lacabaneavoriaz.fr/",
-      "phone": "+33 4 50 74 14 22",
-      "address": "Place du Snow, 74110 Avoriaz",
+      "name": "La Taverne du Chantel",
+      "restaurantUrl": "https://www.lesarcs.com/restaurant/taverne-chantel",
+      "phone": "+33 4 79 07 12 26",
+      "address": "Arc 1600, Les Arcs",
       "cuisine": "French Alpine",
       "id": "additional-4"
     }

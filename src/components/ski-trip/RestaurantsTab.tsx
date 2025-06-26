@@ -72,7 +72,13 @@ const RestaurantsTab: React.FC = () => {
                     <div className="space-y-8">
                         <div className="space-y-4">
                             <h3 className="font-semibold text-lg border-b pb-2">Reserved Restaurants</h3>
-                            {restaurantData.bookings.map((booking) => (
+                            {restaurantData.bookings.length === 0 ? (
+                                <div className="text-center py-8 text-muted-foreground">
+                                    <p className="text-lg mb-2">🍽️ No restaurant bookings yet</p>
+                                    <p>We'll add restaurant reservations closer to the trip date!</p>
+                                </div>
+                            ) : (
+                                restaurantData.bookings.map((booking) => (
                                 <div key={booking.id} className="flex flex-col space-y-4 p-4 rounded-lg bg-muted/50">
                                     <div className="flex justify-between items-start">
                                         <div>
@@ -121,11 +127,12 @@ const RestaurantsTab: React.FC = () => {
                                         )}
                                     </div>
                                 </div>
-                            ))}
+                                ))
+                            )}
                         </div>
 
                         <div className="space-y-4">
-                            <h3 className="font-semibold text-lg border-b pb-2">Additional Restaurants</h3>
+                            <h3 className="font-semibold text-lg border-b pb-2">Les Arcs Restaurant Options</h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {restaurantData.additionalRestaurants.map((restaurant) => (
                                     <div key={restaurant.id} className="p-4 rounded-lg bg-muted/50">

@@ -70,9 +70,9 @@ const SkiTripPlanner: React.FC = () => {
             <div className="mx-auto max-w-6xl">
                 <header className="mb-6 text-center">
                     <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-                        Ski Trip to Avoriaz
+                        Ski Trip to Les Arcs
                     </h1>
-                    <p className="text-slate-600">January 19-26, 2025</p>
+                    <p className="text-slate-600">January 17-24, 2026</p>
                     <FlightCountdown />
                 </header>
 

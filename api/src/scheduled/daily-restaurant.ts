@@ -18,6 +18,17 @@ function getTodayBooking(): Restaurant | null {
     return restaurantData.bookings.find(booking => booking.date === dateStr) || null;
 }
 
+function isWithinNotificationPeriod(): boolean {
+    const today = new Date();
+    
+    // Trip dates: January 17-24, 2026
+    // Notification period: 1 week before (January 10) until end of trip (January 24)
+    const notificationStartDate = new Date('2026-01-10T00:00:00Z');
+    const tripEndDate = new Date('2026-01-24T23:59:59Z');
+    
+    return today >= notificationStartDate && today <= tripEndDate;
+}
+
 export default async function handler(
     request: VercelRequest,
     response: VercelResponse
@@ -39,6 +50,20 @@ export default async function handler(
         const authHeader = request.headers.authorization;
         if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
             response.status(401).json({ error: 'Unauthorized' });
+            return;
+        }
+
+        // Check if we're within the notification period (1 week before trip until end of trip)
+        if (!isWithinNotificationPeriod()) {
+            response.status(200).json({
+                message: 'Outside notification period - no notification sent',
+                type: 'outside_period',
+                currentDate: new Date().toISOString(),
+                notificationPeriod: {
+                    start: '2026-01-10',
+                    end: '2026-01-24'
+                }
+            });
             return;
         }
 
