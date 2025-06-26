@@ -5,8 +5,8 @@ export async function registerServiceWorker() {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
         try {
             // Register the service worker
-            const registration = await navigator.serviceWorker.register('/avoriaz/sw.js', {
-                scope: '/avoriaz/',
+            const registration = await navigator.serviceWorker.register('/ski/sw.js', {
+                scope: '/ski/',
                 // Enable the service worker to handle push events immediately
                 updateViaCache: 'none'
             });

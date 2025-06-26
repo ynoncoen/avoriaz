@@ -4,8 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a ski trip planning application for Avoriaz with both frontend and backend components:
-- **Frontend**: Next.js 15 PWA deployed to GitHub Pages at `https://ynoncoen.github.io/avoriaz/`
+This is a ski trip planning application with both frontend and backend components:
+- **Frontend**: Next.js 15 PWA deployed to GitHub Pages at `https://ynoncoen.github.io/ski/`
 - **Backend**: Express.js/Vercel API for weather and restaurant data
 
 ## Development Commands
@@ -67,7 +67,7 @@ cd api && npm run build
 4. Push notifications managed via Redis state
 
 ### Deployment
-- Frontend: Static export to GitHub Pages with `/avoriaz/` base path
+- Frontend: Static export to GitHub Pages with `/ski/` base path
 - Backend: Vercel serverless functions
 - Service worker configured for GitHub Pages deployment path
 

@@ -1,10 +1,10 @@
-const CACHE_NAME = 'avoriaz-v1';
+const CACHE_NAME = 'ski-v1';
 
 // Add whichever assets you want to pre-cache here
 const PRECACHE_ASSETS = [
-    '/avoriaz/',
-    '/avoriaz/favicon.ico',
-    '/avoriaz/manifest.json'
+    '/ski/',
+    '/ski/favicon.ico',
+    '/ski/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
@@ -93,12 +93,12 @@ self.addEventListener('push', (event) => {
 
         const options = {
             body: data.body,
-            icon: data.icon || '/avoriaz/favicon-192x192.png',
-            badge: '/avoriaz/favicon-32x32.png',
+            icon: data.icon || '/ski/favicon-192x192.png',
+            badge: '/ski/favicon-32x32.png',
             vibrate: [100, 50, 100],
             data: {
                 dateOfArrival: Date.now(),
-                url: data.url || '/avoriaz/'
+                url: data.url || '/ski/'
             }
         };
 

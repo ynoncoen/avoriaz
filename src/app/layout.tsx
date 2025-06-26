@@ -29,8 +29,8 @@ export default function RootLayout({
 
             try {
                 console.log('Attempting to register service worker...');
-                const registration = await navigator.serviceWorker.register('/avoriaz/sw.js', {
-                    scope: '/avoriaz/'
+                const registration = await navigator.serviceWorker.register('/ski/sw.js', {
+                    scope: '/ski/'
                 });
 
                 console.log('Service Worker registration successful:', registration);
@@ -52,13 +52,13 @@ export default function RootLayout({
     return (
         <html lang="en">
         <head>
-            <link rel="manifest" href="/avoriaz/manifest.json"/>
-            <link rel="icon" type="image/x-icon" href="/avoriaz/favicon.ico"/>
-            <link rel="icon" type="image/png" sizes="16x16" href="/avoriaz/favicon-16x16.png"/>
-            <link rel="icon" type="image/png" sizes="32x32" href="/avoriaz/favicon-32x32.png"/>
-            <link rel="icon" type="image/png" sizes="192x192" href="/avoriaz/favicon-192x192.png"/>
-            <link rel="icon" type="image/png" sizes="512x512" href="/avoriaz/favicon-512x512.png"/>
-            <link rel="apple-touch-icon" href="/avoriaz/favicon-192x192.png"/>
+            <link rel="manifest" href="/ski/manifest.json"/>
+            <link rel="icon" type="image/x-icon" href="/ski/favicon.ico"/>
+            <link rel="icon" type="image/png" sizes="16x16" href="/ski/favicon-16x16.png"/>
+            <link rel="icon" type="image/png" sizes="32x32" href="/ski/favicon-32x32.png"/>
+            <link rel="icon" type="image/png" sizes="192x192" href="/ski/favicon-192x192.png"/>
+            <link rel="icon" type="image/png" sizes="512x512" href="/ski/favicon-512x512.png"/>
+            <link rel="apple-touch-icon" href="/ski/favicon-192x192.png"/>
             <meta name="theme-color" content="#f8fafc"/>
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>

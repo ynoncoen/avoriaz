@@ -11,7 +11,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
     title: "Les Arcs",
     description: "Ski Trip planner for Les Arcs",
-    manifest: '/avoriaz/manifest.json',
+    manifest: '/ski/manifest.json',
     appleWebApp: {
         capable: true,
         statusBarStyle: 'default',
@@ -20,30 +20,30 @@ export const metadata: Metadata = {
     icons: {
         icon: [
             {
-                url: '/avoriaz/favicon.ico',
+                url: '/ski/favicon.ico',
                 sizes: 'any',
             },
             {
-                url: '/avoriaz/favicon-16x16.png',
+                url: '/ski/favicon-16x16.png',
                 sizes: '16x16',
                 type: 'image/png',
             },
             {
-                url: '/avoriaz/favicon-32x32.png',
+                url: '/ski/favicon-32x32.png',
                 sizes: '32x32',
                 type: 'image/png',
             },
             {
-                url: '/avoriaz/favicon-192x192.png',
+                url: '/ski/favicon-192x192.png',
                 sizes: '192x192',
                 type: 'image/png',
             },
             {
-                url: '/avoriaz/favicon-512x512.png',
+                url: '/ski/favicon-512x512.png',
                 sizes: '512x512',
                 type: 'image/png',
             },
         ],
-        apple: '/avoriaz/favicon-192x192.png',
+        apple: '/ski/favicon-192x192.png',
     },
 };

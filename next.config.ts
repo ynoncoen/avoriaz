@@ -5,13 +5,13 @@ const nextConfig: NextConfig = {
     images: {
         unoptimized: true
     },
-    basePath: process.env.NODE_ENV === 'development' ? '' : '/avoriaz',
-    assetPrefix: process.env.NODE_ENV === 'development' ? '' : '/avoriaz/',
+    basePath: process.env.NODE_ENV === 'development' ? '' : '/ski',
+    assetPrefix: process.env.NODE_ENV === 'development' ? '' : '/ski/',
     // Add headers for PWA
     async headers() {
         return [
             {
-                source: '/avoriaz/manifest.json',
+                source: '/ski/manifest.json',
                 headers: [
                     {
                         key: 'Cache-Control',
@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
                 ],
             },
             {
-                source: '/avoriaz/sw.js',
+                source: '/ski/sw.js',
                 headers: [
                     {
                         key: 'Cache-Control',
