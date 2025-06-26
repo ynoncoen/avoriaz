@@ -75,7 +75,7 @@ self.addEventListener('periodicsync', (event) => {
         console.log('Periodic sync triggered');
         event.waitUntil(
             // Ping our API to keep the connection alive
-            fetch('https://avoriaz-api.vercel.app/api/ping', { mode: 'no-cors' })
+            fetch('https://ynon-ski-api.vercel.app/api/ping', { mode: 'no-cors' })
         );
     }
 });
