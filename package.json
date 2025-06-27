@@ -9,7 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:notifications": "node tests/restaurant-notification.test.js"
+    "test:notifications": "node tests/restaurant-notification.test.js",
+    "test:calendar": "node tests/travel-details-google-calendar.test.js"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.3",

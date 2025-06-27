@@ -30,6 +30,36 @@ npm run test:notifications
 - ✅ Trip start and end dates
 - ✅ Notification content formatting
 
+## Google Calendar Integration Tests
+
+### `travel-details-google-calendar.test.js`
+
+Tests the Google Calendar integration functionality in the TravelDetailsTab component.
+
+**Key Features Tested:**
+- Google Calendar URL generation
+- Flight duration calculation (4.5 hours Tel Aviv to Grenoble)
+- Date/time formatting for Google Calendar
+- URL parameter encoding
+- Event details formatting
+
+**Run Tests:**
+```bash
+# Run directly with Node.js
+node tests/travel-details-google-calendar.test.js
+
+# Or use npm script
+npm run test:calendar
+```
+
+**Test Coverage:**
+- ✅ Outbound flight URL generation (Jan 17, 2026 at 05:50)
+- ✅ Return flight URL generation (Jan 24, 2026 at 10:30)
+- ✅ Proper URL encoding of special characters
+- ✅ Flight duration calculation (4.5 hours standard)
+- ✅ Google Calendar URL format validation
+- ✅ Event details include all flight information
+
 ## Trip Configuration
 
 **Trip Dates:** January 17-24, 2026  
