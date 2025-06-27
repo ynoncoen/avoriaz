@@ -119,7 +119,8 @@ const TravelDetailsTab: React.FC = () => {
                         variant="outline"
                     >
                         <Calendar className="h-4 w-4" />
-                        Add All to Calendar
+                        <span className="hidden sm:inline">Add All to Calendar</span>
+                        <span className="sm:hidden">Add</span>
                     </Button>
                 </CardHeader>
                 <CardContent>
@@ -134,7 +135,8 @@ const TravelDetailsTab: React.FC = () => {
                                     variant="outline"
                                 >
                                     <Calendar className="h-4 w-4" />
-                                    Add to Calendar
+                                    <span className="hidden sm:inline">Add to Calendar</span>
+                                    <span className="sm:hidden">Add</span>
                                 </Button>
                             </div>
                             <div className="space-y-2">
@@ -162,7 +164,8 @@ const TravelDetailsTab: React.FC = () => {
                                     variant="outline"
                                 >
                                     <Calendar className="h-4 w-4" />
-                                    Add to Calendar
+                                    <span className="hidden sm:inline">Add to Calendar</span>
+                                    <span className="sm:hidden">Add</span>
                                 </Button>
                             </div>
                             <div className="space-y-2">
@@ -196,7 +199,8 @@ const TravelDetailsTab: React.FC = () => {
                         variant="outline"
                     >
                         <Calendar className="h-4 w-4" />
-                        Add Vacation to Calendar
+                        <span className="hidden sm:inline">Add Vacation to Calendar</span>
+                        <span className="sm:hidden">Add</span>
                     </Button>
                 </CardHeader>
                 <CardContent>
