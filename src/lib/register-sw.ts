@@ -18,17 +18,25 @@ export async function registerServiceWorker() {
                 console.log('Successfully subscribed to push notifications');
             }
 
-            // Ensure the service worker is always up to date
+            // Handle service worker updates
             registration.addEventListener('updatefound', () => {
                 const newWorker = registration.installing;
                 if (newWorker) {
                     newWorker.addEventListener('statechange', () => {
-                        if (newWorker.state === 'activated') {
-                            console.log('New service worker activated');
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            // New update available
+                            if (confirm('New version available! Reload to update?')) {
+                                window.location.reload();
+                            }
                         }
                     });
                 }
             });
+
+            // Check for updates every 5 minutes
+            setInterval(() => {
+                registration.update();
+            }, 5 * 60 * 1000);
 
         } catch (error) {
             console.error('ServiceWorker registration failed:', error);

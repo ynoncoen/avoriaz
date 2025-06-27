@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ski-v1';
+const CACHE_NAME = `ski-v${Date.now()}`;
 
 // Add whichever assets you want to pre-cache here
 const PRECACHE_ASSETS = [
@@ -33,6 +33,17 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    // Skip caching for HTML pages to allow updates
+    if (event.request.mode === 'navigate' || 
+        (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
+        event.respondWith(
+            fetch(event.request).catch(() => {
+                return caches.match(event.request);
+            })
+        );
+        return;
+    }
+
     event.respondWith(
         caches.match(event.request)
             .then((response) => {
