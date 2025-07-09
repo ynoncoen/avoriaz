@@ -3,6 +3,7 @@
   "homepage": "https://ynoncoen.github.io/ski",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "server-dev": "cd api && vercel dev",
