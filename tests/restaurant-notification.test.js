@@ -1,16 +1,14 @@
 // Test script for restaurant notification logic
 // This tests the date-based notification system for Les Arcs trip
 
+const { getRestaurantNotificationDates } = require('../src/config/trip-dates');
+
 // Mock the notification period function from the actual code
 function isWithinNotificationPeriod(testDate) {
     const today = testDate || new Date();
+    const { startDate, endDate } = getRestaurantNotificationDates();
     
-    // Trip dates: January 17-24, 2026
-    // Notification period: 1 week before (January 10) until end of trip (January 24)
-    const notificationStartDate = new Date('2026-01-10T00:00:00Z');
-    const tripEndDate = new Date('2026-01-24T23:59:59Z');
-    
-    return today >= notificationStartDate && today <= tripEndDate;
+    return today >= startDate && today <= endDate;
 }
 
 // Mock restaurant booking function

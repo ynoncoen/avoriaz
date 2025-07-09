@@ -2,12 +2,13 @@ import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Plane, Building2, Calendar } from 'lucide-react';
+import { TRIP_CONFIG } from '@/config/trip-dates';
 
 const TravelDetailsTab: React.FC = () => {
     const outboundFlight = {
         flightNumber: 'ISRAIR 6H141',
         departure: 'Tel Aviv (TLV)',
-        departureTime: '05:50',
+        departureTime: TRIP_CONFIG.OUTBOUND_FLIGHT.TIME,
         arrival: 'Grenoble (GNB)',
         arrivalTime: 'TBA'
     };
@@ -15,7 +16,7 @@ const TravelDetailsTab: React.FC = () => {
     const returnFlight = {
         flightNumber: 'ISRAIR 6H142',
         departure: 'Grenoble (GNB)',
-        departureTime: '10:30',
+        departureTime: TRIP_CONFIG.RETURN_FLIGHT.TIME,
         arrival: 'Tel Aviv (TLV)',
         arrivalTime: 'TBA'
     };
@@ -59,9 +60,9 @@ const TravelDetailsTab: React.FC = () => {
     const createVacationCalendarUrl = () => {
         const baseUrl = 'https://www.google.com/calendar/render?action=TEMPLATE';
         
-        // All-day event from Jan 17 to Jan 24
-        const startDate = '20260117';
-        const endDate = '20260125'; // End date is exclusive in Google Calendar
+        // All-day event from trip start to end
+        const startDate = TRIP_CONFIG.GOOGLE_CALENDAR.START_DATE;
+        const endDate = TRIP_CONFIG.GOOGLE_CALENDAR.END_DATE; // End date is exclusive in Google Calendar
         
         const title = encodeURIComponent('Vacation - Skiing in Les Arcs');
         const location = encodeURIComponent('Les Arcs, France');
@@ -76,12 +77,12 @@ const TravelDetailsTab: React.FC = () => {
 
     const handleAddAllToCalendar = () => {
         // Open outbound flight
-        const outboundUrl = createGoogleCalendarUrl(outboundFlight, '2026-01-17');
+        const outboundUrl = createGoogleCalendarUrl(outboundFlight, TRIP_CONFIG.OUTBOUND_FLIGHT.DATE);
         window.open(outboundUrl, '_blank');
         
         // Open return flight with a small delay
         setTimeout(() => {
-            const returnUrl = createGoogleCalendarUrl(returnFlight, '2026-01-24');
+            const returnUrl = createGoogleCalendarUrl(returnFlight, TRIP_CONFIG.RETURN_FLIGHT.DATE);
             window.open(returnUrl, '_blank');
         }, 500);
         
@@ -99,9 +100,9 @@ const TravelDetailsTab: React.FC = () => {
 
     const accommodation = {
         name: 'Arc 1950 Village',
-        checkIn: 'January 17, 2026',
-        checkOut: 'January 24, 2026',
-        duration: '7 nights',
+        checkIn: TRIP_CONFIG.ACCOMMODATION.CHECK_IN,
+        checkOut: TRIP_CONFIG.ACCOMMODATION.CHECK_OUT,
+        duration: TRIP_CONFIG.ACCOMMODATION.DURATION,
         roomType: 'TBA'
     };
 
@@ -127,9 +128,9 @@ const TravelDetailsTab: React.FC = () => {
                     <div className="space-y-6">
                         <div className="border-b pb-4">
                             <div className="flex justify-between items-center mb-4">
-                                <h3 className="font-semibold text-lg">Outbound Flight - January 17, 2026</h3>
+                                <h3 className="font-semibold text-lg">Outbound Flight - {TRIP_CONFIG.ACCOMMODATION.CHECK_IN}</h3>
                                 <Button 
-                                    onClick={() => handleAddToCalendar(outboundFlight, '2026-01-17')}
+                                    onClick={() => handleAddToCalendar(outboundFlight, TRIP_CONFIG.OUTBOUND_FLIGHT.DATE)}
                                     size="sm"
                                     className="flex items-center gap-2 bg-gray-200 hover:bg-gray-500"
                                     variant="outline"
@@ -156,9 +157,9 @@ const TravelDetailsTab: React.FC = () => {
                         </div>
                         <div>
                             <div className="flex justify-between items-center mb-4">
-                                <h3 className="font-semibold text-lg">Return Flight - January 24, 2026</h3>
+                                <h3 className="font-semibold text-lg">Return Flight - {TRIP_CONFIG.ACCOMMODATION.CHECK_OUT}</h3>
                                 <Button 
-                                    onClick={() => handleAddToCalendar(returnFlight, '2026-01-24')}
+                                    onClick={() => handleAddToCalendar(returnFlight, TRIP_CONFIG.RETURN_FLIGHT.DATE)}
                                     size="sm"
                                     className="flex items-center gap-2 bg-gray-200 hover:bg-gray-500"
                                     variant="outline"

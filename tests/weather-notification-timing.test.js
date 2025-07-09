@@ -1,22 +1,15 @@
 // Test script for weather notification timing logic
 // This tests the date-based notification system for Les Arcs trip weather updates
 
+const { getWeatherNotificationDates } = require('../src/config/trip-dates');
+
 // Mock the shouldSendWeatherNotification function from the actual code
 function shouldSendWeatherNotification(testDate) {
     const now = testDate || new Date();
-    const tripStartDate = new Date('2026-01-17');
-    const tripEndDate = new Date('2026-01-24');
-    
-    // Calculate one month before trip start
-    const oneMonthBeforeTrip = new Date(tripStartDate);
-    oneMonthBeforeTrip.setMonth(oneMonthBeforeTrip.getMonth() - 1);
-    
-    // Set trip end date to end of day to include the entire last day
-    const tripEndDateEndOfDay = new Date(tripEndDate);
-    tripEndDateEndOfDay.setHours(23, 59, 59, 999);
+    const { startDate, endDate } = getWeatherNotificationDates();
     
     // Send notifications starting one month before trip until the end of the last day of trip
-    return now >= oneMonthBeforeTrip && now <= tripEndDateEndOfDay;
+    return now >= startDate && now <= endDate;
 }
 
 // Mock daily weather handler logic
@@ -74,6 +67,7 @@ async function mockWeatherHandler(testDate) {
 }
 
 // Test dates covering different scenarios
+const { startDate, endDate } = getWeatherNotificationDates();
 const testDates = [
     { date: new Date('2025-11-17T08:00:00Z'), description: 'Two months before trip' },
     { date: new Date('2025-12-16T08:00:00Z'), description: 'Day before notification window starts' },

@@ -2,6 +2,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { broadcastNotification } from '../services/push-service';
 import restaurantData from '../data/restaurant-data.json';
+import { getRestaurantNotificationDates } from '../../../src/config/trip-dates';
 
 interface Restaurant {
     date: string;
@@ -20,13 +21,9 @@ function getTodayBooking(): Restaurant | null {
 
 function isWithinNotificationPeriod(): boolean {
     const today = new Date();
+    const { startDate, endDate } = getRestaurantNotificationDates();
     
-    // Trip dates: January 17-24, 2026
-    // Notification period: 1 week before (January 10) until end of trip (January 24)
-    const notificationStartDate = new Date('2026-01-10T00:00:00Z');
-    const tripEndDate = new Date('2026-01-24T23:59:59Z');
-    
-    return today >= notificationStartDate && today <= tripEndDate;
+    return today >= startDate && today <= endDate;
 }
 
 export default async function handler(

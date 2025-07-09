@@ -3,6 +3,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { broadcastNotification } from '../services/push-service';
 import * as cheerio from 'cheerio';
+import { getWeatherNotificationDates } from '../../../src/config/trip-dates';
 
 interface WeatherSummary {
     maxTemp: number;
@@ -68,19 +69,10 @@ async function getDailyWeatherSummary(): Promise<WeatherSummary> {
 
 function shouldSendWeatherNotification(): boolean {
     const now = new Date();
-    const tripStartDate = new Date('2026-01-17');
-    const tripEndDate = new Date('2026-01-24');
-    
-    // Calculate one month before trip start
-    const oneMonthBeforeTrip = new Date(tripStartDate);
-    oneMonthBeforeTrip.setMonth(oneMonthBeforeTrip.getMonth() - 1);
-    
-    // Set trip end date to end of day to include the entire last day
-    const tripEndDateEndOfDay = new Date(tripEndDate);
-    tripEndDateEndOfDay.setHours(23, 59, 59, 999);
+    const { startDate, endDate } = getWeatherNotificationDates();
     
     // Send notifications starting one month before trip until the end of the last day of trip
-    return now >= oneMonthBeforeTrip && now <= tripEndDateEndOfDay;
+    return now >= startDate && now <= endDate;
 }
 
 export default async function handler(

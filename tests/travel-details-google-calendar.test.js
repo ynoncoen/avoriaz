@@ -1,6 +1,8 @@
 // Test script for Google Calendar integration in TravelDetailsTab
 // This tests the createGoogleCalendarUrl function and button functionality
 
+const { TRIP_CONFIG } = require('../src/config/trip-dates');
+
 // Test helper function to validate Google Calendar URL format
 function validateGoogleCalendarUrl(url) {
     const requiredParams = ['action=TEMPLATE', 'text=', 'dates=', 'location=', 'details='];
@@ -55,9 +57,9 @@ function createGoogleCalendarUrl(flight, date) {
 function createVacationCalendarUrl() {
     const baseUrl = 'https://www.google.com/calendar/render?action=TEMPLATE';
     
-    // All-day event from Jan 17 to Jan 24
-    const startDate = '20260117';
-    const endDate = '20260125'; // End date is exclusive in Google Calendar
+    // All-day event from trip start to end
+    const startDate = TRIP_CONFIG.GOOGLE_CALENDAR.START_DATE;
+    const endDate = TRIP_CONFIG.GOOGLE_CALENDAR.END_DATE; // End date is exclusive in Google Calendar
     
     const title = encodeURIComponent('Vacation - Skiing in Les Arcs');
     const location = encodeURIComponent('Les Arcs, France');
@@ -74,7 +76,7 @@ function createVacationCalendarUrl() {
 const outboundFlight = {
     flightNumber: 'ISRAIR 6H141',
     departure: 'Tel Aviv (TLV)',
-    departureTime: '05:50',
+    departureTime: TRIP_CONFIG.OUTBOUND_FLIGHT.TIME,
     arrival: 'Grenoble (GNB)',
     arrivalTime: 'TBA'
 };
@@ -82,7 +84,7 @@ const outboundFlight = {
 const returnFlight = {
     flightNumber: 'ISRAIR 6H142',
     departure: 'Grenoble (GNB)',
-    departureTime: '10:30',
+    departureTime: TRIP_CONFIG.RETURN_FLIGHT.TIME,
     arrival: 'Tel Aviv (TLV)',
     arrivalTime: 'TBA'
 };
@@ -92,7 +94,7 @@ const testCases = [
     {
         name: 'Outbound Flight Google Calendar URL',
         flight: outboundFlight,
-        date: '2026-01-17',
+        date: TRIP_CONFIG.OUTBOUND_FLIGHT.DATE,
         expectedTitle: 'ISRAIR 6H141 - Tel Aviv (TLV) to Grenoble (GNB)',
         expectedLocation: 'Tel Aviv (TLV) - Grenoble (GNB)',
         expectedStartTime: '20260117T055000Z', // 05:50 UTC
@@ -102,7 +104,7 @@ const testCases = [
     {
         name: 'Return Flight Google Calendar URL',
         flight: returnFlight,
-        date: '2026-01-24',
+        date: TRIP_CONFIG.RETURN_FLIGHT.DATE,
         expectedTitle: 'ISRAIR 6H142 - Grenoble (GNB) to Tel Aviv (TLV)',
         expectedLocation: 'Grenoble (GNB) - Tel Aviv (TLV)',
         expectedStartTime: '20260124T103000Z', // 10:30 UTC
@@ -114,8 +116,8 @@ const testCases = [
         isVacation: true,
         expectedTitle: 'Vacation - Skiing in Les Arcs',
         expectedLocation: 'Les Arcs, France',
-        expectedStartDate: '20260117',
-        expectedEndDate: '20260125',
+        expectedStartDate: TRIP_CONFIG.GOOGLE_CALENDAR.START_DATE,
+        expectedEndDate: TRIP_CONFIG.GOOGLE_CALENDAR.END_DATE,
         description: 'Should generate correct Google Calendar URL for vacation event (all-day, multi-day)'
     }
 ];
@@ -290,8 +292,8 @@ function testAddAllToCalendar() {
     
     try {
         // Test that we can generate all three URLs
-        const outboundUrl = createGoogleCalendarUrl(outboundFlight, '2026-01-17');
-        const returnUrl = createGoogleCalendarUrl(returnFlight, '2026-01-24');
+        const outboundUrl = createGoogleCalendarUrl(outboundFlight, TRIP_CONFIG.OUTBOUND_FLIGHT.DATE);
+        const returnUrl = createGoogleCalendarUrl(returnFlight, TRIP_CONFIG.RETURN_FLIGHT.DATE);
         const vacationUrl = createVacationCalendarUrl();
         
         // Verify all URLs are valid
@@ -315,10 +317,10 @@ function testAddAllToCalendar() {
         const vacationParams = parseGoogleCalendarUrl(vacationUrl);
         
         // Verify date consistency
-        if (outboundParams.dates.startsWith('20260117') && 
-            returnParams.dates.startsWith('20260124') && 
-            vacationParams.dates === '20260117/20260125') {
-            console.log(`✅ Date Consistency: All events properly span the trip period (Jan 17-24, 2026)`);
+        if (outboundParams.dates.startsWith(TRIP_CONFIG.GOOGLE_CALENDAR.START_DATE) && 
+            returnParams.dates.startsWith(TRIP_CONFIG.GOOGLE_CALENDAR.START_DATE.replace('17', '24')) && 
+            vacationParams.dates === `${TRIP_CONFIG.GOOGLE_CALENDAR.START_DATE}/${TRIP_CONFIG.GOOGLE_CALENDAR.END_DATE}`) {
+            console.log(`✅ Date Consistency: All events properly span the trip period (${TRIP_CONFIG.ACCOMMODATION.CHECK_IN} - ${TRIP_CONFIG.ACCOMMODATION.CHECK_OUT})`);
         } else {
             throw new Error('Date inconsistency in Add All calendar events');
         }

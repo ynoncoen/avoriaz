@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { Plane } from 'lucide-react';
+import { getFlightDates } from '@/config/trip-dates';
 
 const FlightCountdown = () => {
     const [timeLeft, setTimeLeft] = useState({
@@ -12,7 +13,8 @@ const FlightCountdown = () => {
     });
 
     useEffect(() => {
-        const flightDate = new Date('2026-01-17T05:50:00+02:00'); // Tel Aviv time (UTC+2)
+        const { outboundDate } = getFlightDates();
+        const flightDate = outboundDate;
 
         const calculateTimeLeft = () => {
             const now = new Date();
