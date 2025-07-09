@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "test:notifications": "node tests/restaurant-notification.test.js",
-    "test:calendar": "node tests/travel-details-google-calendar.test.js"
+    "test:calendar": "node tests/travel-details-google-calendar.test.js",
+    "test:weather-timing": "node tests/weather-notification-timing.test.js"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.3",

@@ -66,6 +66,23 @@ async function getDailyWeatherSummary(): Promise<WeatherSummary> {
     }
 }
 
+function shouldSendWeatherNotification(): boolean {
+    const now = new Date();
+    const tripStartDate = new Date('2026-01-17');
+    const tripEndDate = new Date('2026-01-24');
+    
+    // Calculate one month before trip start
+    const oneMonthBeforeTrip = new Date(tripStartDate);
+    oneMonthBeforeTrip.setMonth(oneMonthBeforeTrip.getMonth() - 1);
+    
+    // Set trip end date to end of day to include the entire last day
+    const tripEndDateEndOfDay = new Date(tripEndDate);
+    tripEndDateEndOfDay.setHours(23, 59, 59, 999);
+    
+    // Send notifications starting one month before trip until the end of the last day of trip
+    return now >= oneMonthBeforeTrip && now <= tripEndDateEndOfDay;
+}
+
 export default async function handler(
     request: VercelRequest,
     response: VercelResponse
@@ -86,6 +103,18 @@ export default async function handler(
         const authHeader = request.headers.authorization;
         if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
             response.status(401).json({ error: 'Unauthorized' });
+            return;
+        }
+
+        // Check if we should send weather notifications based on trip timing
+        if (!shouldSendWeatherNotification()) {
+            response.status(200).json({
+                message: 'Weather notifications not active - outside of notification window',
+                notificationWindow: {
+                    start: 'One month before trip (December 17, 2025)',
+                    end: 'Last day of trip (January 24, 2026)'
+                }
+            });
             return;
         }
 
